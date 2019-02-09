@@ -1,0 +1,60 @@
+
+
+<app-book-info-modal></app-book-info-modal>
+<app-cancel-modal></app-cancel-modal>
+
+<br>
+<br>
+
+<div class="container">
+
+
+<div class="row" >
+
+    <div class="col-sm" *ngFor='let tableInfo of tableInfos'>
+
+     <div class="card" style="width: 18rem;">
+
+  <div class="card-body">
+
+  <span class="badge badge-pill badge-success" *ngIf='tableInfo.isAvailable'> Available </span>
+  <span class="badge badge-pill badge-danger" *ngIf='!tableInfo.isAvailable'> Not Available </span>
+
+  
+    <h5 class="card-title">Table {{tableInfo.tableId}}</h5>
+
+
+    <div *ngIf='tableInfo.bookingInfo'>
+    <p class="card-text">Name:{{tableInfo.bookingInfo.name | uppercase}}
+    <p class="card-text">Mobile no:{{tableInfo.bookingInfo.phoneNumber | mobileNumberPipeConverter}}</p>
+    <p class="card-text">Guest Total:{{tableInfo.bookingInfo.guestTotal}}</p>
+    <p class="card-text">Booked For:{{tableInfo.bookingInfo.bookedFor}}</p>
+    </div>
+
+   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#book">
+
+  Book
+
+</button>
+
+ 
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#checkout">
+
+  Check Out
+
+</button>
+
+  </div>
+
+</div>
+
+    </div>
+    
+
+   
+   
+
+  </div>
+
+</div>
