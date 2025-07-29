@@ -36,7 +36,7 @@ export class TabBookMainComponent implements OnInit {
       "bookingInfo":{
         "phoneNumber":"7684763876",
         "name":"Kavin Subramanian",
-        "guestTotal":"4",
+        "guestTotal": 4,
         "bookedFor":"Break Fast"
       }
 
