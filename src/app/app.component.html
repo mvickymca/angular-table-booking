@@ -1,2 +1,13 @@
-<app-title-heading></app-title-heading>
-<app-tab-book-main></app-tab-book-main>
+<nav class="main-navigation">
+  <div class="nav-container">
+    <h1 class="nav-title">Table Booking System</h1>
+    <div class="nav-links">
+      <a routerLink="/dashboard" routerLinkActive="active" class="nav-link">API Dashboard</a>
+      <a routerLink="/legacy" routerLinkActive="active" class="nav-link">Legacy View</a>
+    </div>
+  </div>
+</nav>
+
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>

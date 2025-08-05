@@ -1,0 +1,41 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: table-booking-api
+  
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    time-zone: UTC
+    date-format: yyyy-MM-dd HH:mm:ss
+
+  mvc:
+    format:
+      date-time: yyyy-MM-dd HH:mm:ss
+
+logging:
+  level:
+    com.example.tablebooking: DEBUG
+    org.springframework.web: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+# Swagger configuration
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true
+    auto-startup: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always

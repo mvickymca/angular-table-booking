@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { TitleHeadingComponent } from './title-heading/title-heading.component';
@@ -11,6 +12,12 @@ import { TableInfoServiceService } from './table-info-service.service';
 import { MobileNumberPipeConverter } from './shared-files/mobile-number-pipe';
 import { AppRoutingModule } from './/app-routing.module';
 
+// Import new services
+import { TableService } from './services/table.service';
+import { BookingService } from './services/booking.service';
+
+// Import new components
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -19,13 +26,21 @@ import { AppRoutingModule } from './/app-routing.module';
     TabBookMainComponent,
     BookInfoModalComponent,
     CancelModalComponent,
-    MobileNumberPipeConverter
+    MobileNumberPipeConverter,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [TableInfoServiceService],
+  providers: [
+    TableInfoServiceService,
+    TableService,
+    BookingService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
