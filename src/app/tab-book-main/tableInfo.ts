@@ -1,14 +1,13 @@
 export interface bookingInfo {
-    phoneNumber:String;
-    name:String;
-    guestTotal:String;
-    bookedFor:String;
-  }
+    phoneNumber: string;
+    name: string;
+    guestTotal: number;
+    bookedFor: string;
+}
 
-export interface tableInfo
-{
-    tableId: String;
-    isAvailable:Boolean;
-    capacity: Number,
-    bookingInfo:bookingInfo;
+export interface tableInfo {
+    tableId: string;
+    isAvailable: boolean;
+    capacity: number;
+    bookingInfo: bookingInfo | null;
 }
