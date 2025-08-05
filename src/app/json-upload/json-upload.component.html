@@ -1,0 +1,114 @@
+<div class="json-upload-container">
+  <div class="upload-header">
+    <h2>JSON File Upload</h2>
+    <p>Upload your custom JSON file and get a consumable API URL</p>
+  </div>
+
+  <!-- File Upload Area -->
+  <div class="upload-area" 
+       (dragover)="onDragOver($event)" 
+       (dragleave)="onDragLeave($event)" 
+       (drop)="onDrop($event)"
+       [class.drag-over]="false">
+    
+    <div class="upload-content">
+      <div class="upload-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="#6366f1">
+          <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+        </svg>
+      </div>
+      
+      <h3>Drop your JSON file here</h3>
+      <p>or click to browse</p>
+      
+      <input type="file" 
+             id="fileInput" 
+             accept=".json,application/json" 
+             (change)="onFileSelected($event)"
+             style="display: none;">
+      
+      <button type="button" 
+              class="browse-btn" 
+              onclick="document.getElementById('fileInput').click()">
+        Choose File
+      </button>
+    </div>
+  </div>
+
+  <!-- Selected File Info -->
+  <div *ngIf="selectedFile" class="file-info">
+    <div class="file-details">
+      <strong>Selected File:</strong> {{ selectedFile.name }}
+      <span class="file-size">({{ (selectedFile.size / 1024).toFixed(2) }} KB)</span>
+    </div>
+    <button class="upload-btn" (click)="uploadFile()" [disabled]="isLoading">
+      <span *ngIf="!isLoading">Upload JSON</span>
+      <span *ngIf="isLoading">Uploading...</span>
+    </button>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="error" class="error-message">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="#ef4444">
+      <path d="M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+    </svg>
+    {{ error }}
+  </div>
+
+  <!-- Upload Result -->
+  <div *ngIf="uploadResult && uploadResult.success" class="success-result">
+    <div class="success-header">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="#10b981">
+        <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M11,16.5L18,9.5L16.59,8.09L11,13.67L7.41,10.09L6,11.5L11,16.5Z"/>
+      </svg>
+      <h3>Upload Successful!</h3>
+    </div>
+    
+    <div class="result-details">
+      <div class="detail-row">
+        <label>File:</label>
+        <span>{{ uploadResult.filename }}</span>
+      </div>
+      
+      <div class="detail-row">
+        <label>ID:</label>
+        <span>{{ uploadResult.id }}</span>
+      </div>
+      
+      <div class="detail-row">
+        <label>Created:</label>
+        <span>{{ uploadResult.createdAt | date:'medium' }}</span>
+      </div>
+      
+      <div class="detail-row">
+        <label>API URL:</label>
+        <div class="url-container">
+          <input type="text" 
+                 [value]="uploadResult.accessUrl" 
+                 readonly 
+                 class="url-input">
+          <button class="copy-btn" (click)="copyToClipboard(uploadResult.accessUrl)">
+            Copy
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="actions">
+      <button class="secondary-btn" (click)="resetForm()">
+        Upload Another File
+      </button>
+      <a [href]="uploadResult.accessUrl" 
+         target="_blank" 
+         class="view-btn">
+        View JSON
+      </a>
+    </div>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Uploading your JSON file...</p>
+  </div>
+</div>

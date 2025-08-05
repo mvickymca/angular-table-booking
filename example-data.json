@@ -1,0 +1,50 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "role": "admin",
+      "profile": {
+        "age": 30,
+        "department": "Engineering",
+        "skills": ["JavaScript", "Java", "Python"]
+      }
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "role": "developer",
+      "profile": {
+        "age": 28,
+        "department": "Engineering",
+        "skills": ["React", "Angular", "Node.js"]
+      }
+    },
+    {
+      "id": 3,
+      "name": "Mike Johnson",
+      "email": "mike.johnson@example.com",
+      "role": "designer",
+      "profile": {
+        "age": 32,
+        "department": "Design",
+        "skills": ["UI/UX", "Figma", "Adobe Creative Suite"]
+      }
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "created": "2024-01-15",
+    "description": "Sample user data for testing the JSON API",
+    "total_users": 3,
+    "last_updated": "2024-01-15T10:30:00Z"
+  },
+  "settings": {
+    "theme": "dark",
+    "notifications": true,
+    "language": "en",
+    "timezone": "UTC"
+  }
+}
