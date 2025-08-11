@@ -26,3 +26,30 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 "# angular-table-booking" 
+
+## Azure Deployment
+
+Two supported options:
+
+1) Azure Storage Static Website (recommended for Angular SPAs)
+
+- Prereqs: Azure CLI logged in (`az login`), Docker installed.
+- Build and deploy in one step:
+
+```bash
+bash scripts/deploy-azure-storage.sh
+```
+
+- Customize via env vars:
+  - `APP_NAME`, `RESOURCE_GROUP`, `LOCATION`, `STORAGE_ACCOUNT`, `DIST_DIR`
+
+2) Azure Container Apps (containerized Nginx)
+
+- Prereqs: Azure CLI (`az extension add -n containerapp`), Docker.
+- Build, push, and deploy:
+
+```bash
+bash scripts/deploy-azure-containerapp.sh
+```
+
+- Resulting URL is printed when done. 
