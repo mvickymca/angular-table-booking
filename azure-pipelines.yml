@@ -1,0 +1,50 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  NodeVersion: '10.x'
+  DistDir: 'dist'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: $(NodeVersion)
+  displayName: Use Node.js $(NodeVersion)
+
+- script: |
+    npm ci || npm install
+    ./node_modules/.bin/ng version || npm install -g @angular/cli@1.7.2
+    ./node_modules/.bin/ng build --prod
+  displayName: Build Angular
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(DistDir)'
+    ArtifactName: 'dist'
+    publishLocation: 'Container'
+  displayName: Publish dist artifact
+
+# Example deployment to Azure Storage Static Website using AzureCLI@2
+# Requires a service connection and variables set in the pipeline
+# - variables: RESOURCE_GROUP, STORAGE_ACCOUNT
+- task: AzureCLI@2
+  displayName: Deploy to Azure Storage Static Website
+  inputs:
+    azureSubscription: '$(AZURE_SERVICE_CONNECTION)'
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      az storage blob service-properties update \
+        --account-name $(STORAGE_ACCOUNT) \
+        --static-website \
+        --index-document index.html \
+        --404-document index.html
+      az storage blob upload-batch \
+        --account-name $(STORAGE_ACCOUNT) \
+        --auth-mode login \
+        --destination "\$web" \
+        --source $(DistDir)
+  condition: and(succeeded(), ne(variables['STORAGE_ACCOUNT'], ''))
